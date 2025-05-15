@@ -1,7 +1,9 @@
 package it.itsincom.webdevd.web;
 
 import it.itsincom.webdevd.service.UserService;
+import it.itsincom.webdevd.web.model.user.CreateUserRequest;
 import it.itsincom.webdevd.web.model.user.ModifyUserRequest;
+import it.itsincom.webdevd.web.model.user.UserResponse;
 import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
@@ -59,5 +61,21 @@ public class ProtectedResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
+
+    @POST
+    @Path("/newUser")
+    @RolesAllowed("ADMIN")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(CreateUserRequest request) {
+        UserResponse user = userService.createUser(request);
+        if(user != null) {
+            return Response.ok(user).build();
+        }else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+
 
 }
