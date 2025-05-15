@@ -71,8 +71,16 @@ public class UserService {
         return toUserResponse(userRepository.findByUsername(username));
     }
 
-    public boolean modifyUser(ModifyUserRequest request, int id) {
-        boolean modify= userRepository.updateUser(request.getFirstName(), request.getLastName(), request.getAddress(), String.valueOf(id));
-        return modify;
+    @Transactional
+    public UserResponse modifyUser(ModifyUserRequest request, Long id)
+    {
+        boolean modify = userRepository.updateUser(id, request.getFirstName(), request.getLastName(), request.getAddress());
+        if (modify) {
+            ApplicationUser user = userRepository.findById(id);
+            UserResponse newUser = toUserResponse(user);
+            return newUser;
+        } else {
+            return null;
+        }
     }
 }

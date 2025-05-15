@@ -4,18 +4,22 @@ public class    ModifyUserRequest {
     private String firstName;
     private String lastName;
     private String address;
+    private String role;
 
-    public ModifyUserRequest(String firstName, String lastName, String address) {
+
+
+    public ModifyUserRequest(String firstName, String lastName, String address, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
+        this.role = role;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddresse(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -34,5 +38,11 @@ public class    ModifyUserRequest {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+    public String getRole() {
+        return role;
+    }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
