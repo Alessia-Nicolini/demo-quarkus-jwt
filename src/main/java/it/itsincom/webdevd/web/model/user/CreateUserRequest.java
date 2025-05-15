@@ -1,4 +1,4 @@
-package it.itsincom.webdevd.web.model;
+package it.itsincom.webdevd.web.model.user;
 
 import it.itsincom.webdevd.persistence.model.UserRole;
 
@@ -7,6 +7,9 @@ public class CreateUserRequest {
     private String username;
     private String password;
     private UserRole role;
+    private String firstName;
+    private String lastName;
+    private String address;
 
     public String getUsername() {
         return username;
@@ -31,4 +34,29 @@ public class CreateUserRequest {
     public void setRole(UserRole role) {
         this.role = role;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 }

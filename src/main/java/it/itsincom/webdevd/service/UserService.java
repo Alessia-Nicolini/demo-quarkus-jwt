@@ -1,11 +1,11 @@
 package it.itsincom.webdevd.service;
 
-import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.panache.common.Sort;
 import it.itsincom.webdevd.persistence.UserRepository;
 import it.itsincom.webdevd.persistence.model.ApplicationUser;
-import it.itsincom.webdevd.web.model.CreateUserRequest;
-import it.itsincom.webdevd.web.model.UserResponse;
+import it.itsincom.webdevd.web.model.user.CreateUserRequest;
+import it.itsincom.webdevd.web.model.user.ModifyUserRequest;
+import it.itsincom.webdevd.web.model.user.UserResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 
@@ -26,7 +26,10 @@ public class UserService {
         ApplicationUser user = new ApplicationUser(
                 request.getUsername(),
                 request.getPassword(),
-                request.getRole()
+                request.getRole(),
+                request.getFirstName(),
+                request.getLastName(),
+                request.getAddress()
         );
 
         userRepository.persist(user);
@@ -57,11 +60,19 @@ public class UserService {
         return new UserResponse(
                 user.getId(),
                 user.getUsername(),
-                user.getRole()
+                user.getRole(),
+                user.getFirstname(),
+                user.getLastname(),
+                user.getAddress()
         );
     }
 
     public UserResponse getUserByUsername(String username) {
         return toUserResponse(userRepository.findByUsername(username));
+    }
+
+    public boolean modifyUser(ModifyUserRequest request, int id) {
+        boolean modify= userRepository.updateUser(request.getFirstName(), request.getLastName(), request.getAddress(), String.valueOf(id));
+        return modify;
     }
 }

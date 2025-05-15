@@ -5,7 +5,7 @@ import it.itsincom.webdevd.service.UserService;
 import it.itsincom.webdevd.web.model.AccessTokenResponse;
 import it.itsincom.webdevd.web.model.LoginRequest;
 import it.itsincom.webdevd.web.model.TokenResponse;
-import it.itsincom.webdevd.web.model.UserResponse;
+import it.itsincom.webdevd.web.model.user.UserResponse;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;

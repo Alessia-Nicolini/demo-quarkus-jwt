@@ -1,10 +1,12 @@
 package it.itsincom.webdevd.web;
 
 import it.itsincom.webdevd.service.UserService;
-import it.itsincom.webdevd.web.model.CreateUserRequest;
-import it.itsincom.webdevd.web.model.UserResponse;
+import it.itsincom.webdevd.web.model.user.CreateUserRequest;
+import it.itsincom.webdevd.web.model.user.ModifyUserRequest;
+import it.itsincom.webdevd.web.model.user.UserResponse;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
@@ -30,4 +32,7 @@ public class UserResource {
     public List<UserResponse> findAll() {
         return userService.findAll();
     }
+
+
+
 }

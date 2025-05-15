@@ -1,16 +1,23 @@
 package it.itsincom.webdevd.web;
 
+import it.itsincom.webdevd.service.UserService;
+import it.itsincom.webdevd.web.model.user.ModifyUserRequest;
 import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Path("/protected")
 @DenyAll
 public class ProtectedResource {
+
+    private final UserService userService;
+
+    public ProtectedResource(UserService userService) {
+        this.userService = userService;
+    }
 
     @GET
     @Path("/admin")
@@ -23,8 +30,10 @@ public class ProtectedResource {
     @GET
     @Path("/user")
     @RolesAllowed({"ADMIN", "USER"})
-    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public String onlyForUsers() {
+
         return "Only for users!";
     }
 
@@ -35,4 +44,20 @@ public class ProtectedResource {
     public String forEveryone() {
         return "For everyone!";
     }
+
+
+    @PUT
+    @Path("/{id}")
+    @RolesAllowed("USER")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response modify(ModifyUserRequest request, @PathParam("id") int id ) {
+        boolean modified = userService.modifyUser(request, id);
+        if(modified) {
+            return Response.ok(request).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
 }
